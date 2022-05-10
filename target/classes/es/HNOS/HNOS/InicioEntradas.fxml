@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.HNOS.HNOS.EntradaController">
+   <children>
+      <SplitPane dividerPositions="0.3177257525083612" layoutY="25.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="tablaJuego" layoutY="38.0" prefHeight="373.0" prefWidth="187.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="idColumna" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="nombreColumna" prefWidth="75.0" text="NOMBRE" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <GridPane layoutY="-7.0" prefHeight="373.0" prefWidth="405.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="175.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="230.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="202.0" minHeight="0.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="294.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="305.0" minHeight="0.0" prefHeight="121.0" valignment="TOP" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="138.0" valignment="TOP" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="39.0" valignment="TOP" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="73.0" prefWidth="133.0" text="ID">
+                           <font>
+                              <Font name="Arial Black" size="15.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="idLabel" text="Label" GridPane.columnIndex="1" />
+                        <Button fx:id="Eliminar" mnemonicParsing="false" onAction="#EliminarEntrada" text="Eliminar Entrada" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#AñadirEntrada" text="Añadir Entrada" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets left="110.0" />
+                           </GridPane.margin></Button>
+                        <Label prefHeight="105.0" prefWidth="144.0" text="NOMBRE" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Black" size="15.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label prefHeight="62.0" prefWidth="144.0" text="Descripcion" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Black" size="15.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <ImageView fx:id="Imagen" fitHeight="115.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="nombreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets top="25.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="Descripcion" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets top="25.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#EditaEntrada" text="Editar Entrada" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Label layoutX="281.0" layoutY="-2.0" prefHeight="33.0" prefWidth="71.0" text="HNOS">
+         <font>
+            <Font name="Arial Black" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
