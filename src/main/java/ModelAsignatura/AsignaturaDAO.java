@@ -7,11 +7,12 @@ import java.util.logging.Logger;
 
 import java.lang.System.Logger.Level;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.time.LocalDate;
 
 import ModelEntrada.Entrada;
 import Utils.ConnectionUtil;
@@ -79,19 +80,19 @@ public class AsignaturaDAO extends Asignatura {
 		int result = -1;
 
 		try {
-			java.sql.Connection csql = ConnectionUtil.getConnection();
+			java.sql.Connection sql = ConnectionUtil.getConnection();
 
 			if (this.id >= 0) {
 				String nombre = this.nombre;
 				String q = "UPDATE asignatura SET nombre =? WHERE id = " + id;
-				PreparedStatement ps = csql.prepareStatement(q);
+				PreparedStatement ps = sql.prepareStatement(q);
 				ps.setString(1, nombre);
 				result = ps.executeUpdate();
 
 			} else {
 				
 				String q = INSERT;
-				PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement ps = sql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
 
 				ps.setString(1, this.nombre);
 				result = ps.executeUpdate();
@@ -155,8 +156,8 @@ public class AsignaturaDAO extends Asignatura {
 					Entrada añadir = new Entrada();
 					añadir.setId(rs.getInt("id"));
 					añadir.setDescripcion(rs.getString("Descripcion"));
-					añadir.setFecha(rs.getDate("Fecha"));
-					añadir.setFechaRecordatorio((rs.getDate("FechaRecordatorio")));
+					añadir.setFecha((Date) rs.getObject("Fecha"));
+					añadir.setFechaRecordatorio((Date) (rs.getObject("FechaRecordatorio")));
 					añadir.setId_a(rs.getInt("id_a"));
 					añadir.setEstado(rs.getBoolean("Estado"));
 					Entradass.add(añadir);
@@ -173,7 +174,7 @@ public class AsignaturaDAO extends Asignatura {
 		return Entradass;
 	}
 
-	public List<Entrada> getMiJuegos() throws SQLException {
+	public List<Entrada> getMiEntradas() throws SQLException {
 
 		
 		if (Entradas == null) {

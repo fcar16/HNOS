@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -49,8 +51,8 @@ public class EntradaDAO extends Entrada {
 				while (rs.next()) {
 					this.id = rs.getInt("id");
 					this.Descripcion = rs.getString("descripcion")	;
-					this.Fecha = rs.getDate("Fecha");
-					this.FechaRecordatorio = rs.getDate("FechaRecordatorio");
+					this.Fecha =  (Date) rs.getObject("Fecha");
+					//this.FechaRecordatorio =  rs.getObject("FechaRecordatorio");
 					this.id_a = rs.getInt("id_a");
 					this.Estado = rs.getBoolean("Estado");
 				}
@@ -74,16 +76,16 @@ public class EntradaDAO extends Entrada {
         int result = -1;
         
         try {
-            java.sql.Connection csql = ConnectionUtil.getConnection();
+            java.sql.Connection sql = ConnectionUtil.getConnection();
             
             if(this.id>0){
                 //UPDATE
             	String Descripcion=this.Descripcion;
                 String q = "UPDATE entrada SET Descripcion=?,Fecha=?,FechaRecordatorio=?,id_a=? , Estado=? WHERE id ="+id;
-                PreparedStatement ps = csql.prepareStatement(q);
+                PreparedStatement ps = sql.prepareStatement(q);
                 ps.setString(1, Descripcion);
-                ps.setDate(2, (java.sql.Date) Fecha);
-                ps.setDate(3, (java.sql.Date) FechaRecordatorio);
+                ps.setObject(2,  Fecha);
+                ps.setObject(3,  FechaRecordatorio);
                 ps.setInt(4, id_a);
                 ps.setBoolean(5, Estado);
                 result= ps.executeUpdate();
@@ -91,12 +93,12 @@ public class EntradaDAO extends Entrada {
             }else {
                 //INSERT
                 String q = INSERT;
-                PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps = sql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 
                 
                 ps.setString(1, this.Descripcion);
-                ps.setDate(2, (java.sql.Date) this.Fecha);
-                ps.setDate(3, (java.sql.Date) this.FechaRecordatorio);
+                ps.setObject(2, this.Fecha);
+                ps.setObject(3,  this.FechaRecordatorio);
                 ps.setInt(4, this.id_a);
                 ps.setBoolean(5, this.Estado);
                 result = ps.executeUpdate();
@@ -134,7 +136,7 @@ public class EntradaDAO extends Entrada {
 
 	}
 
-	public static List<Entrada> GetAllJuego() throws SQLException {
+	public static List<Entrada> GetAllEntradas() throws SQLException {
 		List<Entrada> Base = new ArrayList<Entrada>();
 		Connection con = ConnectionUtil.getConnection();
 

@@ -1,5 +1,6 @@
 package es.HNOS.HNOS;
 
+import java.util.Date;
 import java.util.List;
 
 import ModelAsignatura.Asignatura;
@@ -17,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.control.skin.ChoiceBoxSkin;
@@ -29,6 +31,11 @@ public class RegistroEntradaController {
 	private static final Labeled Descripcion = null;
 
 	ObservableList<Asignatura> options = FXCollections.observableArrayList(AsignaturaDAO.GetAllAsignatura());
+	
+	@FXML
+	private DatePicker FechaRecordatorio;
+	@FXML
+	private DatePicker Fecha;
 
 	@FXML
 	private Button Agregar;
@@ -57,9 +64,8 @@ public class RegistroEntradaController {
 	private void CrearEntrada() {
 
 		if (Entrada.getId() >= 0) {
-
+			 
 			String DescripcionEntradaa = DescripcionEntrada.getText();
-			String Descrip = DescripcionAsignatura.getText();
 			String nombre = c.getSelectionModel().getSelectedItem();
 			int id = 0;
 			for (Asignatura e : lista) {

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -19,7 +18,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="tablaJuego" layoutY="38.0" prefHeight="373.0" prefWidth="187.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="TablaEntrada" layoutY="38.0" prefHeight="373.0" prefWidth="187.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="idColumna" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="nombreColumna" prefWidth="75.0" text="NOMBRE" />
@@ -38,11 +37,11 @@
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="230.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="202.0" minHeight="0.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="294.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="305.0" minHeight="0.0" prefHeight="121.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="138.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="39.0" valignment="TOP" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="202.0" minHeight="0.0" prefHeight="78.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="294.0" minHeight="0.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="305.0" minHeight="0.0" prefHeight="53.0" valignment="TOP" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="126.0" valignment="TOP" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="37.0" valignment="TOP" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label prefHeight="73.0" prefWidth="133.0" text="ID">
@@ -62,7 +61,7 @@
                            <GridPane.margin>
                               <Insets left="110.0" />
                            </GridPane.margin></Button>
-                        <Label prefHeight="105.0" prefWidth="144.0" text="NOMBRE" GridPane.rowIndex="2">
+                        <Label prefHeight="105.0" prefWidth="144.0" text="Descripción" GridPane.rowIndex="1">
                            <font>
                               <Font name="Arial Black" size="15.0" />
                            </font>
@@ -70,26 +69,46 @@
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label prefHeight="62.0" prefWidth="144.0" text="Descripcion" GridPane.rowIndex="3">
+                        <Label prefHeight="62.0" prefWidth="144.0" text="Fecha Entrega" GridPane.rowIndex="3">
                            <font>
                               <Font name="Arial Black" size="15.0" />
                            </font>
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
+                           <padding>
+                              <Insets top="40.0" />
+                           </padding>
                         </Label>
-                        <ImageView fx:id="Imagen" fitHeight="115.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="nombreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label fx:id="nombreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets top="25.0" />
                            </GridPane.margin>
+                           <padding>
+                              <Insets bottom="30.0" />
+                           </padding>
                         </Label>
-                        <Label fx:id="Descripcion" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="FechaRecordatorio" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets top="25.0" />
                            </GridPane.margin>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
                         </Label>
                         <Button mnemonicParsing="false" onAction="#EditaEntrada" text="Editar Entrada" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label prefHeight="62.0" prefWidth="83.0" text="Fecha" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Black" size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="Fecha" alignment="CENTER" contentDisplay="CENTER" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding></Label>
                      </children>
                   </GridPane>
                </children>

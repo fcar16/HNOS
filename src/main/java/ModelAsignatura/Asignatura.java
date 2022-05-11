@@ -8,7 +8,7 @@ import ModelEntrada.Entrada;
 
 
 public class Asignatura {
-	protected int id=0;
+	protected int id;
 	protected String nombre;
 	protected List<Entrada> Entradas;
 

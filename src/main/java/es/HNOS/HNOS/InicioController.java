@@ -31,7 +31,7 @@ public class InicioController {
 	private Label nombreLabel;
 
 	@FXML
-	TableView<Asignatura> tablaAsignatura;
+	TableView<Asignatura> TablaAsignatura;
 
 	@FXML
 	private TableColumn<Asignatura, String> idColumna;
@@ -45,10 +45,10 @@ public class InicioController {
 		configuraTabla();
 		
 
-		/*tablaAsignatura.setItems(FXCollections.observableArrayList(AppController.todas));
-		tablaAsignatura.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+		TablaAsignatura.setItems(FXCollections.observableArrayList(AppController.todas));
+		TablaAsignatura.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			muestraInfo(newValue);
-		});*/
+		});
 		
 	}
 
@@ -143,7 +143,7 @@ public class InicioController {
 
 				}
 			}
-			tablaAsignatura.refresh();
+			TablaAsignatura.refresh();
 
 		}
 	}

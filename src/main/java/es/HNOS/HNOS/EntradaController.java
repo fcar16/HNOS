@@ -14,8 +14,10 @@ import ModelEntrada.EntradaDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,6 +26,13 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class EntradaController {
+	
+	@FXML
+	private DatePicker FechaRecordatorio;
+	
+	
+	@FXML
+	private DatePicker Fecha;
 
 	@FXML
 	private Label idLabel;
@@ -32,13 +41,10 @@ public class EntradaController {
 	private Label nombreLabel;
 
 	@FXML
-	private Label Descripcion;
-
-	@FXML
 	private Button Eliminar;
 	
 	@FXML
-	TableView<Entrada> tablaEntrada;
+	TableView<Entrada> TablaEntrada;
 
 	@FXML
 	private TableColumn<Entrada, String> idColumna;
@@ -46,14 +52,14 @@ public class EntradaController {
 	private TableColumn<Entrada, String> nombreColumna;
 
 	@FXML
-	protected void initialize() {
+	protected void Initialize() {
 		System.out.println("Cargando...");
 
 		muestraInfo(null);
 		configuraTabla();
 		
-		tablaEntrada.setItems(FXCollections.observableArrayList(AppController.Entradas));
-		tablaEntrada.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+		TablaEntrada.setItems(FXCollections.observableArrayList(AppController.Entradas));
+		TablaEntrada.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			muestraInfo(newValue);
 		});
 	}
@@ -75,17 +81,17 @@ public class EntradaController {
 
 		if (p != null) {
 			idLabel.setText(Integer.toString(p.getId()));
-			
+				
 			nombreLabel.setText(p.getDescripcion());
+			//Fecha.set(p.getFecha());
+			//FechaRecordatorio.setValue(p.getFechaRecordatorio());
 			
-		
 			
 
 		} else {
 			idLabel.setText("");
 			
 			nombreLabel.setText("");
-			Descripcion.setText("");
 		}
 	}
 
@@ -111,8 +117,8 @@ public class EntradaController {
 					f.setId_a(j.getId_a());
 				}
 			}
-			tablaEntrada.refresh();
-			initialize();
+			TablaEntrada.refresh();
+			Initialize();
 		}
 	}
 
@@ -126,8 +132,8 @@ public class EntradaController {
 		try {
 			App.loadScene(p, "RegistroEntrada", "Añadir Entrada ");
 
-			tablaEntrada.refresh();
-			initialize();
+			TablaEntrada.refresh();
+			Initialize();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

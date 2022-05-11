@@ -1,5 +1,6 @@
 package ModelEntrada;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -30,8 +31,8 @@ public class Entrada {
 	public Date getFecha() {
 		return Fecha;
 	}
-	public void setFecha(Date fecha) {
-		Fecha = fecha;
+	public void setFecha(Date localDate) {
+		Fecha = localDate;
 	}
 	public Date getFechaRecordatorio() {
 		return FechaRecordatorio;
