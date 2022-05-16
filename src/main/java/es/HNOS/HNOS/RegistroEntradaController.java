@@ -1,5 +1,6 @@
 package es.HNOS.HNOS;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -28,30 +29,45 @@ import javafx.util.StringConverter;
 
 public class RegistroEntradaController {
 
-	private static final Labeled Descripcion = null;
 
 	ObservableList<Asignatura> options = FXCollections.observableArrayList(AsignaturaDAO.GetAllAsignatura());
-	
+	/*
+	 * DatePicker el cual guarda FechaRecordatorio
+	 */
 	@FXML
 	private DatePicker FechaRecordatorio;
+	/*
+	 * DatePicker el cual guarda Fecha
+	 */
 	@FXML
 	private DatePicker Fecha;
-
+/*
+ * Boton agregar
+ */
 	@FXML
 	private Button Agregar;
-
+/*
+ * TextField el cual guarda la descripcion de cada entrada
+ */
 	@FXML
 	private TextField DescripcionEntrada;
-
+/*
+ * TextField el cual guarda el nombre de a asingatura de la que va a ser la entrada
+ */
 	@FXML
 	private TextField DescripcionAsignatura;
+	/*
+	 * ChoiceBox para eleguir a que asignatura va a ser
+	 */
 	@FXML
 	private ChoiceBox<String> c;
 
 	public static EntradaDAO Entrada;
 
 	List<Asignatura> lista = AsignaturaDAO.GetAllAsignatura();
-
+/*
+ * Metodo para iniciar 
+ */
 	@FXML
 	private void initialize() {
 		for (Asignatura e : lista) {
@@ -59,13 +75,16 @@ public class RegistroEntradaController {
 		}
 
 	}
-
+/*
+ * Metodo asignado a un boton para crear una entrada 
+ */
 	@FXML
 	private void CrearEntrada() {
 
 		if (Entrada.getId() >= 0) {
 			 
 			String DescripcionEntradaa = DescripcionEntrada.getText();
+			
 			String nombre = c.getSelectionModel().getSelectedItem();
 			int id = 0;
 			for (Asignatura e : lista) {
@@ -76,11 +95,14 @@ public class RegistroEntradaController {
 
 			Entrada.setDescripcion(DescripcionEntradaa);
 			Entrada.setId_a(id);
+			
 			Entrada.save();
 		} else {
 
-			String DescripcionEntradaa = DescripcionEntrada.getText();
+			
 			String Descrip = DescripcionAsignatura.getText();
+			String fecha = Fecha.getValue().toString();
+			String FechaRecordatorioo = FechaRecordatorio.getValue().toString();
 			String nombre = c.getSelectionModel().getSelectedItem();
 			int id = 0;
 			for (Asignatura e : lista) {
@@ -88,7 +110,7 @@ public class RegistroEntradaController {
 					id = e.getId();
 				}
 			}
-			EntradaDAO j = new EntradaDAO(DescripcionEntradaa, Descrip, id);
+			EntradaDAO j = new EntradaDAO( Descrip, fecha, FechaRecordatorioo,id );
 			j.save();
 			if (j.getId_a() == AppController.idAsignatura) {
 				AppController.Entradas.add(j);

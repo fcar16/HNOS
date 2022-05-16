@@ -19,7 +19,9 @@ import java.io.IOException;
 public class App extends Application {
 
 	 private static Scene scene;
-
+/**
+ * Metodo Con el que inicia el programa
+ */
 	    @Override
 	    public void start(Stage stage) throws IOException {
 	    	stage.setTitle("HNOS");

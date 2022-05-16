@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-
 import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,34 +15,72 @@ import java.time.LocalDate;
 
 import ModelEntrada.Entrada;
 import Utils.ConnectionUtil;
-	
-public class AsignaturaDAO extends Asignatura {
 
+public class AsignaturaDAO extends Asignatura {
+	/*
+	 * Consulta para sacar el nombre y la id de una asignatura
+	 */
 	private final static String GETBYID = "SELECT id,nombre FROM asignatura WHERE id=";
+	/*
+	 * Consulta a la base de datos para actualizar o cambiar nombre de una
+	 * asignatura
+	 */
 	private final static String INSERTUPDATE = "INSERT INTO asignatura (id, nombre)" + "VALUES (?,?) "
 			+ "ON DUPLICATE KEY UPDATE nombre=?";
+	/*
+	 * Consulta a la base de datos para añadir una asignatura
+	 */
 	private final static String INSERT = "INSERT INTO asignatura (nombre) VALUES (?)";
+	/*
+	 * Consulta para eliminar una asignatura por su id
+	 */
 	private final static String DELETE = "DELETE FROM asignatura WHERE id=?";
-
-	private final static String ENTRADAs = "SELECT * FROM entrada,asignatura WHERE id_a=a.id";
+	/*
+	 * Consulta para mostrar Las asignaturas
+	 */
 	private final static String ASIGNATURA = "SELECT * FROM asignatura";
-
+	/*
+	 * Consulta para mostrar las entradas de una asignatura dependiendo de la id de
+	 * la entrada
+	 */
 	private final static String ENTRADAS = "SELECT * FROM entrada WHERE id_a=";
+
+	/**
+	 * Constructor por defecto
+	 */
 
 	public AsignaturaDAO() {
 		super();
 
 	}
 
+	/**
+	 * Contructor por los siguientes parametros
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param Entradas
+	 */
 	public AsignaturaDAO(int id, String nombre, List<Entrada> Entradas) {
 		super(id, nombre, Entradas);
 
 	}
 
+	/**
+	 * Contructor con los siguientes parametros
+	 * 
+	 * @param id
+	 * @param nombre
+	 */
 	public AsignaturaDAO(int id, String nombre) {
 		super(id, nombre);
 	}
 
+	/**
+	 * Contructor con los siguientes parametros
+	 * 
+	 * @param nombre
+	 */
 	public AsignaturaDAO(String nombre) {
 		super(nombre);
 		// TODO Auto-generated constructor stub
@@ -55,8 +92,11 @@ public class AsignaturaDAO extends Asignatura {
 		this.Entradas = c.Entradas;
 	}
 
-	
-	public AsignaturaDAO(int id)  {
+	/**
+	 * 
+	 * @param id
+	 */
+	public AsignaturaDAO(int id) {
 		super();
 		Connection con = (Connection) ConnectionUtil.getConnection();
 		if (con != null) {
@@ -68,7 +108,7 @@ public class AsignaturaDAO extends Asignatura {
 					this.id = rs.getInt("id");
 					this.nombre = rs.getString("nombre");
 				}
-				this.Entradas=AsignaturaDAO.buscarEntradaPorAsignatura(this.id);
+				this.Entradas = AsignaturaDAO.buscarEntradaPorAsignatura(this.id);
 			} catch (SQLException e) {
 
 				e.printStackTrace();
@@ -76,13 +116,17 @@ public class AsignaturaDAO extends Asignatura {
 		}
 	}
 
+	/*
+	 * Metodo El cual añade una asignatura a la base de datos
+	 */
 	public int save() {
 		int result = -1;
 
 		try {
-			java.sql.Connection sql = ConnectionUtil.getConnection();
+			Connection sql = ConnectionUtil.getConnection();
 
 			if (this.id >= 0) {
+				
 				String nombre = this.nombre;
 				String q = "UPDATE asignatura SET nombre =? WHERE id = " + id;
 				PreparedStatement ps = sql.prepareStatement(q);
@@ -90,28 +134,35 @@ public class AsignaturaDAO extends Asignatura {
 				result = ps.executeUpdate();
 
 			} else {
-				
+				System.out.println(this.nombre);
+				String nombre = this.nombre;
 				String q = INSERT;
 				PreparedStatement ps = sql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
 
-				ps.setString(1, this.nombre);
+				ps.setString(1, nombre);
 				result = ps.executeUpdate();
 				try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 					if (generatedKeys.next()) {
-						result = generatedKeys.getInt(1); 
+						result = generatedKeys.getInt(1);
 					}
 				}
 				this.id = result;
+
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Error Guardando Asignatura");
+			System.out.println(ex);
 		}
 
 		return result;
 	}
 
-	public static List<Asignatura> GetAllAsignatura()   {
+	/**
+	 * Metodo que nos muestra todas los asignaturas
+	 * 
+	 * @return
+	 */
+	public static List<Asignatura> GetAllAsignatura() {
 		List<Asignatura> Base = new ArrayList<Asignatura>();
 		Connection con = ConnectionUtil.getConnection();
 
@@ -144,7 +195,13 @@ public class AsignaturaDAO extends Asignatura {
 		return Base;
 	}
 
-	public static List<Entrada> buscarEntradaPorAsignatura(int id) throws SQLException {
+	/**
+	 * Metodo para buscar una entrada dependindo de la id de la asignatura
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static List<Entrada> buscarEntradaPorAsignatura(int id) {
 		List<Entrada> Entradass = new ArrayList<Entrada>();
 		Connection con = ConnectionUtil.getConnection();
 		if (con != null) {
@@ -156,10 +213,10 @@ public class AsignaturaDAO extends Asignatura {
 					Entrada añadir = new Entrada();
 					añadir.setId(rs.getInt("id"));
 					añadir.setDescripcion(rs.getString("Descripcion"));
-					añadir.setFecha((Date) rs.getObject("Fecha"));
-					añadir.setFechaRecordatorio((Date) (rs.getObject("FechaRecordatorio")));
+					añadir.setFecha(rs.getString("Fecha"));
+					añadir.setFechaRecordatorio(rs.getString("FechaRecordatorio"));
 					añadir.setId_a(rs.getInt("id_a"));
-					añadir.setEstado(rs.getBoolean("Estado"));
+
 					Entradass.add(añadir);
 
 				}
@@ -174,17 +231,26 @@ public class AsignaturaDAO extends Asignatura {
 		return Entradass;
 	}
 
-	public List<Entrada> getMiEntradas() throws SQLException {
+	/**
+	 * Metodo que devuelve la entradas que tiene una asignatura
+	 * 
+	 * @return
+	 */
+	public List<Entrada> getMiEntradas() {
 
-		
 		if (Entradas == null) {
-			
+
 			Entradas = buscarEntradaPorAsignatura(this.id);
 		}
 		return Entradas;
 	}
 
-	public int eliminar()  {
+	/**
+	 * Metodo para eliminar una asignatura de la base de datos
+	 * 
+	 * @return
+	 */
+	public int eliminar() {
 		int rs = 0;
 		Connection con = ConnectionUtil.getConnection();
 

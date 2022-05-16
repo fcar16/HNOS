@@ -31,16 +31,16 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <GridPane layoutY="-7.0" prefHeight="373.0" prefWidth="405.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
+                  <GridPane layoutY="7.0" prefHeight="373.0" prefWidth="405.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="175.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="230.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="187.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="218.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="202.0" minHeight="0.0" prefHeight="78.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="294.0" minHeight="0.0" prefHeight="79.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="305.0" minHeight="0.0" prefHeight="53.0" valignment="TOP" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="126.0" valignment="TOP" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="294.0" minHeight="0.0" prefHeight="107.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="305.0" minHeight="0.0" prefHeight="59.0" valignment="TOP" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="92.0" valignment="TOP" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="37.0" valignment="TOP" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
@@ -53,7 +53,7 @@
                            </GridPane.margin>
                         </Label>
                         <Label fx:id="idLabel" text="Label" GridPane.columnIndex="1" />
-                        <Button fx:id="Eliminar" mnemonicParsing="false" onAction="#EliminarEntrada" text="Eliminar Entrada" GridPane.rowIndex="4">
+                        <Button fx:id="Eliminar" mnemonicParsing="false" onAction="#EliminarEntrada" prefHeight="25.0" prefWidth="99.0" text="Eliminar Entrada" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin></Button>
@@ -88,7 +88,7 @@
                               <Insets bottom="30.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="FechaRecordatorio" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="FechaRecordatorio" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets top="25.0" />
                            </GridPane.margin>
@@ -109,6 +109,14 @@
                            <padding>
                               <Insets top="20.0" />
                            </padding></Label>
+                        <Label fx:id="FechaRecordatorio" alignment="CENTER" contentDisplay="CENTER" prefHeight="66.0" prefWidth="62.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
                      </children>
                   </GridPane>
                </children>

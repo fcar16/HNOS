@@ -12,15 +12,21 @@ import javafx.stage.Stage;
 
 
 public class RegistroController {
-
+/*
+ * TextField el cual guardamos el nombre de la asignatura
+ */
 	@FXML
 	private TextField NombreAsignatura;
-
+/*
+ * Boton 
+ */
 	@FXML
 	private Button boton;
 
 	public static AsignaturaDAO asignatura;
-
+/*
+ * Metodo por el cual crea una asignatura en la bbdd asignado al boton
+ */
 	@FXML
 	private void CrearAsignatura()  {
 

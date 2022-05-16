@@ -11,13 +11,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javafx.scene.control.DatePicker;
+
 
 public class EntradaDAO extends Entrada {
 	public static final String GETBYID = "SELECT id,Descripcion,Fecha,FechaRecordatorio,id_a FROM entrada WHERE id=";
 	private static final String DELETE = "DELETE FROM entrada WHERE id=?";
-	private static final String INSERTUPDATE = "INSERT INTO entrada (id, Descripcion,Fecha,FechRecordatorio,id_a) "
+	private static final String INSERTUPDATE = "INSERT INTO entrada (id,Descripcion,Fecha,FechaRecordatorio,id_a) "
 			+ "VALUES (?,?,?,?,?) " + "ON DUPLICATE KEY UPDATE Descripcion=?,Fecha=?,FechaRecordatorio=?,id_a=?";
-	private final static String INSERT = "INSERT INTO entrada (id,Descripcion,Fecha,id_a) VALUES (?,?,?,?)";
+	private final static String INSERT = "INSERT INTO entrada (id_a,Descripcion,Fecha,FechaRecordatorio) VALUES (?,?,?,?)";
 	private static final String TODO = "SELECT * FROM entrada";
 	private static final String GETBYCATEGORIA = "SELECT entrada,id,entrada.Descripcion,entrada.Fecha,entrada.FechaRecordatorio,entrada.id_a FROM entrada,asignatura WHERE id_a=entrada.id";
 	private static final Statement ConnectionUtil = null;
@@ -26,11 +28,11 @@ public class EntradaDAO extends Entrada {
 		super();
 	}
 
-	public EntradaDAO(int id, String Descripcion, Date Fecha, Date FechaRecordatorio, int id_a ,Boolean Estado) {
-		super(id, Descripcion, Fecha, FechaRecordatorio, id_a, Estado);
+	public EntradaDAO(int id, String Descripcion, String Fecha, String fechaRecordatorio, int id_a ) {
+		super(id, Descripcion, Fecha, fechaRecordatorio, id_a);
 	}
-	public EntradaDAO(String Descripcion, Date Fecha, Date FechaRecordatorio, int id_a, Boolean Estado) {
-		super(id_a, Descripcion, Fecha, FechaRecordatorio, id_a, Estado);
+	public EntradaDAO(String Descripcion, String Fecha, String FechaRecordatorio, int id_a) {
+		super(id_a, Descripcion, Fecha, FechaRecordatorio, id_a);
 	
 	}
 	
@@ -42,7 +44,7 @@ public class EntradaDAO extends Entrada {
 	public EntradaDAO(int id)  {
 		super();
 		Connection con = (Connection) Utils.ConnectionUtil.getConnection();
-		// Stament
+	
 		if (con != null) {
 			try {
 				Statement st = con.createStatement();
@@ -51,10 +53,10 @@ public class EntradaDAO extends Entrada {
 				while (rs.next()) {
 					this.id = rs.getInt("id");
 					this.Descripcion = rs.getString("descripcion")	;
-					this.Fecha =  (Date) rs.getObject("Fecha");
-					//this.FechaRecordatorio =  rs.getObject("FechaRecordatorio");
+					this.Fecha =  rs.getString("Fecha");
+					this.FechaRecordatorio =  rs.getString("FechaRecordatorio");
 					this.id_a = rs.getInt("id_a");
-					this.Estado = rs.getBoolean("Estado");
+					
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -69,49 +71,55 @@ public class EntradaDAO extends Entrada {
 		this.Fecha = j.Fecha;
 		this.FechaRecordatorio = j.FechaRecordatorio;
 		this.id_a = j.id_a;
-		this.Estado =j.Estado;
+		
+	}
+
+	public EntradaDAO(int id, String descrip, String fecha, DatePicker fechaRecordatorio) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int save(){
         int result = -1;
         
         try {
-            java.sql.Connection sql = ConnectionUtil.getConnection();
+            java.sql.Connection sql = Utils.ConnectionUtil.getConnection();
             
             if(this.id>0){
-                //UPDATE
+                
             	String Descripcion=this.Descripcion;
-                String q = "UPDATE entrada SET Descripcion=?,Fecha=?,FechaRecordatorio=?,id_a=? , Estado=? WHERE id ="+id;
-                PreparedStatement ps = sql.prepareStatement(q);
-                ps.setString(1, Descripcion);
-                ps.setObject(2,  Fecha);
-                ps.setObject(3,  FechaRecordatorio);
-                ps.setInt(4, id_a);
-                ps.setBoolean(5, Estado);
+                String q = "UPDATE entrada SET id_a=?,Descripcion=?,Fecha=?,FechaRecordatorio=? , id=? WHERE id ="+id;
+                PreparedStatement ps = sql.prepareStatement(q); 
+                ps.setInt(1, id_a);
+                ps.setString(2, Descripcion);
+                ps.setObject(3,  Fecha);
+                ps.setObject(4,  FechaRecordatorio);
+                ps.setInt(5, id);
+               
                 result= ps.executeUpdate();
                 
             }else {
-                //INSERT
+                
                 String q = INSERT;
                 PreparedStatement ps = sql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 
+                ps.setInt(1, this.id_a);
+                ps.setString(2, this.Descripcion);
+                ps.setObject(3,  this.Fecha);
+                ps.setObject(4,  this.FechaRecordatorio);
                 
-                ps.setString(1, this.Descripcion);
-                ps.setObject(2, this.Fecha);
-                ps.setObject(3,  this.FechaRecordatorio);
-                ps.setInt(4, this.id_a);
-                ps.setBoolean(5, this.Estado);
+               
+          
                 result = ps.executeUpdate();
                 try(ResultSet generatedKeys = ps.getGeneratedKeys()){
                     if(generatedKeys.next()){
-                        result = generatedKeys.getInt(1); //devuelve el ultimo id insertado
+                        result = generatedKeys.getInt(1);
                     }
                 }
                 this.id = result;
             }
             
         }catch (SQLException ex) {
-            System.out.println("Error Guardando categoria");
+            System.out.println(ex);
         }
         
         return result;
