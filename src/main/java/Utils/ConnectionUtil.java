@@ -3,7 +3,7 @@ package Utils;
 
 
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 import Connection.Connection;
 
@@ -56,30 +56,6 @@ public static java.sql.Connection connect(Connection c) throws ClassNotFoundExce
         }
     }
     
-    private static void compruebaestructura(java.sql.Connection conn) {
-        String tabla1, tabla2;
-        tabla1="CREATE TABLE IF NOT EXISTS asignatura(" +
-                "id int(11) NOT NULL," +
-                "nombre text NOT NULL" +
-                ");";
-        tabla2="CREATE TABLE IF NOT EXISTS entrada(" +
-                "id int(11) NOT NULL," +
-                "Descripcion text DEFAULT NULL," +
-                "Fecha Date NOT NULL," +
-                "FechaRecordatorio Date NOT NULL," +
-                "id_a int(11) NOT NULL," +
-                "CONSTRAINT entrada_asignatura FOREIGN KEY (id_a) REFERENCES asignatura (id)" +
-                "ON DELETE CASCADE ON UPDATE CASCADE" +
-                ");";
-        try {
-            PreparedStatement t1 = conn.prepareStatement(tabla1);
-            PreparedStatement t2 = conn.prepareStatement(tabla2);
-            t1.executeUpdate();
-            t2.executeUpdate();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
+  
 
 }

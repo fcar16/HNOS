@@ -10,10 +10,11 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+
 import javafx.scene.control.DatePicker;
 
 
-public class EntradaDAO extends Entrada {
+public class EntradaDAO extends Entrada implements Interfaces.EntradaDAO {
 	/**
 	 * Consulta la cual nos da la entrada dependiendo de la id
 	 */

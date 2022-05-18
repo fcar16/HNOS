@@ -3,6 +3,8 @@ package ModelAsignatura;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interfaces.AsignaturaDao;
+
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
@@ -14,7 +16,7 @@ import java.sql.Statement;
 import ModelEntrada.Entrada;
 import Utils.ConnectionUtil;
 
-public class AsignaturaDAO extends Asignatura {
+public class AsignaturaDAO extends Asignatura implements AsignaturaDao {
 	/**
 	 * Consulta para sacar el nombre y la id de una asignatura
 	 */

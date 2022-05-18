@@ -112,7 +112,7 @@ public class RegistroEntradaController {
 					id = e.getId();
 				}
 			}
-			EntradaDAO j = new EntradaDAO( Descrip, fecha, FechaRecordatorioo,id );
+			EntradaDAO j = new EntradaDAO( Descrip, fecha, FechaRecordatorioo,id );	
 			j.save();
 			if (j.getId_a() == AppController.idAsignatura) {
 				AppController.Entradas.add(j);
