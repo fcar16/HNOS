@@ -31,25 +31,25 @@ public class EntradaController {
 	 */
 	@FXML
 	private Label FechaRecordatorio;
-	
+
 	/**
 	 * Label que tiene la fecha en la que se a guardado la entrada
 	 */
 	@FXML
 	private Label Fecha;
-/**
- * Label que nos muestra la id de la entrada selecionada
- */
+	/**
+	 * Label que nos muestra la id de la entrada selecionada
+	 */
 	@FXML
 	private Label idLabel;
-/**
- * Label que nos muestra el nombre/descripcion de la entrada selecionada
- */
+	/**
+	 * Label que nos muestra el nombre/descripcion de la entrada selecionada
+	 */
 	@FXML
 	private Label nombreLabel;
-/**
- * Boton de eliminar 
- */
+	/**
+	 * Boton de eliminar
+	 */
 	@FXML
 	private Button Eliminar;
 	/**
@@ -57,9 +57,9 @@ public class EntradaController {
 	 */
 	@FXML
 	TableView<Entrada> TablaEntrada;
-/*
- * Columna de la tabla que muestra la id de la entrada
- */
+	/*
+	 * Columna de la tabla que muestra la id de la entrada
+	 */
 	@FXML
 	private TableColumn<Entrada, String> idColumna;
 	/*
@@ -67,26 +67,26 @@ public class EntradaController {
 	 */
 	@FXML
 	private TableColumn<Entrada, String> nombreColumna;
-/**
- * Metodo En el que inicia todo en este en concreto inicia la tabla y configura
- */
+
+	/**
+	 * Metodo En el que inicia todo en este en concreto inicia la tabla y configura
+	 */
 	@FXML
 	protected void initialize() {
 		System.out.println("Cargando...");
 
 		muestraInfo(null);
 		configuraTabla();
-		
+
 		TablaEntrada.setItems(FXCollections.observableArrayList(AppController.Entradas));
 		TablaEntrada.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			muestraInfo(newValue);
 		});
 	}
-	
-	
-/**
- * Metodo echo para configurar el tableview
- */
+
+	/**
+	 * Metodo echo para configurar el tableview
+	 */
 	private void configuraTabla() {
 		idColumna.setCellValueFactory(cadaAsignatura -> {
 			SimpleStringProperty c = new SimpleStringProperty();
@@ -99,20 +99,20 @@ public class EntradaController {
 			return v;
 		});
 	}
-/**
- * Metodo Para mostar información en las vistas
- * @param p Entrada que le pasas para que muestre la informacion de ella
- */
+
+	/**
+	 * Metodo Para mostar información en las vistas
+	 * 
+	 * @param p Entrada que le pasas para que muestre la informacion de ella
+	 */
 	private void muestraInfo(Entrada p) {
 
 		if (p != null) {
 			idLabel.setText(Integer.toString(p.getId()));
-				
+
 			nombreLabel.setText(p.getDescripcion());
 			Fecha.setText(p.getFecha());
 			FechaRecordatorio.setText(p.getFechaRecordatorio());
-			
-			
 
 		} else {
 			idLabel.setText("");
@@ -122,40 +122,47 @@ public class EntradaController {
 		}
 	}
 
-	
-/**
- * Metodo el cual nos sirve para editar la entrada selecionada asignado a un boton
- */
+	/**
+	 * Metodo el cual nos sirve para editar la entrada selecionada asignado a un
+	 * boton
+	 */
 	@FXML
 	private void EditaEntrada() {
-		int id = Integer.parseInt(idLabel.getText());
-		if (id >= 0) {
-			EntradaDAO j = new EntradaDAO(id);
-			RegistroEntradaController.setEntrada(j);
-			try {
-				App.loadScene(new Stage(), "RegistroEntrada", "Actualizar");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			for (Entrada f : AppController.Entradas) {
-				if (f.getId() == j.getId()) {
-					
-					f.setId(j.getId());
-					f.setDescripcion(j.getDescripcion());
-					f.setId_a(j.getId_a());
-					f.setFecha(j.getFecha());
-					f.setFechaRecordatorio(j.getFechaRecordatorio());
+		try {
+			int id = Integer.parseInt(idLabel.getText());
+			if (id >= 0) {
+				EntradaDAO j = new EntradaDAO(id);
+				RegistroEntradaController.setEntrada(j);
+				try {
+					App.loadScene(new Stage(), "RegistroEntrada", "Actualizar");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
+				for (Entrada f : AppController.Entradas) {
+					if (f.getId() == j.getId()) {
+						f.setId(j.getId());
+						f.setDescripcion(j.getDescripcion());
+						f.setId_a(j.getId_a());
+						f.setFecha(j.getFecha());
+						f.setFechaRecordatorio(j.getFechaRecordatorio());
+					}
+
+				}
+				TablaEntrada.refresh();
 			}
-			TablaEntrada.refresh();
-			initialize();
+		} catch (NumberFormatException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Debes seleccionar una Entrada");
+			alert.showAndWait();
 		}
 	}
-/**
- * Metodo para añadir una entrada asignado a un boton
- */
+
+	/**
+	 * Metodo para añadir una entrada asignado a un boton
+	 */
 	@FXML
 	private void AñadirEntrada() {
 		Stage p = new Stage();
@@ -174,9 +181,10 @@ public class EntradaController {
 		}
 
 	}
-/**
- * Metodo en cual muestra una ventana emergente con un mensaje escrito
- */
+
+	/**
+	 * Metodo en cual muestra una ventana emergente con un mensaje escrito
+	 */
 	private void mostrarAlertWarning() {
 		Alert alert = new Alert(Alert.AlertType.WARNING);
 		alert.setHeaderText(null);
@@ -184,21 +192,31 @@ public class EntradaController {
 		alert.setContentText("Se cerrara la pestaña y borrara una Entrada de la base de datos");
 		alert.showAndWait();
 	}
-/**
- * Metodo que elimina una entrada de la base de datos asignada a un boton
- */
+
+	/**
+	 * Metodo que elimina una entrada de la base de datos asignada a un boton
+	 */
 	@FXML
 	private void EliminarEntrada() {
-		int id = Integer.parseInt(idLabel.getText());
-		if (id >= 0) {
-			EntradaDAO p = new EntradaDAO(id);
-			Entrada j = new Entrada(p.getId(),  p.getDescripcion(), p.getFecha(), p.getFechaRecordatorio(), p.getId_a());
-			AppController.Entradas.remove(j);
-			p.eliminar();
-			mostrarAlertWarning();
-			App.closeScene((Stage) Eliminar.getScene().getWindow());
+		try {
 
+			int id = Integer.parseInt(idLabel.getText());
+			if (id >= 0) {
+				EntradaDAO p = new EntradaDAO(id);
+				Entrada j = new Entrada(p.getId(), p.getDescripcion(), p.getFecha(), p.getFechaRecordatorio(),
+						p.getId_a());
+				AppController.Entradas.remove(j);
+				p.eliminar();
+				mostrarAlertWarning();
+				App.closeScene((Stage) Eliminar.getScene().getWindow());
+
+			}
+		} catch (NumberFormatException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Debes seleccionar una Entrada");
+			alert.showAndWait();
 		}
-
 	}
 }

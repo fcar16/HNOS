@@ -87,7 +87,9 @@ public class Connection implements Serializable {
 	public String toString() {
 		return "Connection [host=" + host + ", db=" + db + ", usuario=" + usuario + ", contraseña=" + contraseña + "]";
 	}
-
+/**
+ * Metodo por el cual conseguimos la conexion a la base de datos
+ */
 	public void loadDataXML() {		
 		File f = new File("conexion.xml");
 

@@ -84,7 +84,8 @@ public class RegistroEntradaController {
 		if (Entrada.getId() >= 0) {
 			 
 			String DescripcionEntradaa = DescripcionEntrada.getText();
-			
+			String fecha = Fecha.getValue().toString();
+			String FechaRecordatorioo = FechaRecordatorio.getValue().toString();
 			String nombre = c.getSelectionModel().getSelectedItem();
 			int id = 0;
 			for (Asignatura e : lista) {
@@ -95,7 +96,8 @@ public class RegistroEntradaController {
 
 			Entrada.setDescripcion(DescripcionEntradaa);
 			Entrada.setId_a(id);
-			
+			Entrada.setFecha(fecha);
+			Entrada.setFechaRecordatorio(FechaRecordatorioo);
 			Entrada.save();
 		} else {
 
@@ -114,9 +116,11 @@ public class RegistroEntradaController {
 			j.save();
 			if (j.getId_a() == AppController.idAsignatura) {
 				AppController.Entradas.add(j);
+				
+				
 			}
 		}
-
+		
 		App.closeScene((Stage) Agregar.getScene().getWindow());
 
 	}

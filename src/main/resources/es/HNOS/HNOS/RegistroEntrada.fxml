@@ -33,7 +33,7 @@
             <Font name="Times New Roman" size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="FechaRecordativo" layoutX="201.0" layoutY="179.0" />
+      <DatePicker fx:id="FechaRecordatorio" layoutX="201.0" layoutY="179.0" />
       <Label layoutX="79.0" layoutY="182.0" prefHeight="20.0" prefWidth="124.0" text="Fecha Entrega">
          <font>
             <Font name="Times New Roman" size="18.0" />

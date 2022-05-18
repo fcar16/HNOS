@@ -2,16 +2,14 @@ package ModelAsignatura;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import java.lang.System.Logger.Level;
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
+
 
 import ModelEntrada.Entrada;
 import Utils.ConnectionUtil;
@@ -93,12 +91,12 @@ public class AsignaturaDAO extends Asignatura {
 	}
 
 	/**
-	 * 
+	 * Metodo con el cual nos conectamos a la base de datos 
 	 * @param id
 	 */
 	public AsignaturaDAO(int id) {
 		super();
-		Connection con = (Connection) ConnectionUtil.getConnection();
+		Connection con = ConnectionUtil.getConnection();
 		if (con != null) {
 			try {
 				Statement st = con.createStatement();
