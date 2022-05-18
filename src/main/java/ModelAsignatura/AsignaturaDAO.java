@@ -15,29 +15,29 @@ import ModelEntrada.Entrada;
 import Utils.ConnectionUtil;
 
 public class AsignaturaDAO extends Asignatura {
-	/*
+	/**
 	 * Consulta para sacar el nombre y la id de una asignatura
 	 */
 	private final static String GETBYID = "SELECT id,nombre FROM asignatura WHERE id=";
-	/*
+	/**
 	 * Consulta a la base de datos para actualizar o cambiar nombre de una
 	 * asignatura
 	 */
 	private final static String INSERTUPDATE = "INSERT INTO asignatura (id, nombre)" + "VALUES (?,?) "
 			+ "ON DUPLICATE KEY UPDATE nombre=?";
-	/*
+	/**
 	 * Consulta a la base de datos para añadir una asignatura
 	 */
 	private final static String INSERT = "INSERT INTO asignatura (nombre) VALUES (?)";
-	/*
+	/**
 	 * Consulta para eliminar una asignatura por su id
 	 */
 	private final static String DELETE = "DELETE FROM asignatura WHERE id=?";
-	/*
+	/**
 	 * Consulta para mostrar Las asignaturas
 	 */
 	private final static String ASIGNATURA = "SELECT * FROM asignatura";
-	/*
+	/**
 	 * Consulta para mostrar las entradas de una asignatura dependiendo de la id de
 	 * la entrada
 	 */
@@ -114,7 +114,7 @@ public class AsignaturaDAO extends Asignatura {
 		}
 	}
 
-	/*
+	/**
 	 * Metodo El cual añade una asignatura a la base de datos
 	 */
 	public int save() {

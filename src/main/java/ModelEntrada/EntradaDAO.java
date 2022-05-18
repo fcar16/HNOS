@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import Utils.ConnectionUtil;
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -14,32 +14,68 @@ import javafx.scene.control.DatePicker;
 
 
 public class EntradaDAO extends Entrada {
+	/**
+	 * Consulta la cual nos da la entrada dependiendo de la id
+	 */
 	public static final String GETBYID = "SELECT id,Descripcion,Fecha,FechaRecordatorio,id_a FROM entrada WHERE id=";
+	/**
+	 * Consulta para eliminar una entrada por id
+	 */
 	private static final String DELETE = "DELETE FROM entrada WHERE id=?";
-	private static final String INSERTUPDATE = "INSERT INTO entrada (id,Descripcion,Fecha,FechaRecordatorio,id_a) "
-			+ "VALUES (?,?,?,?,?) " + "ON DUPLICATE KEY UPDATE Descripcion=?,Fecha=?,FechaRecordatorio=?,id_a=?";
+	/**
+	 * Consulta para añadir una entrada
+	 */
 	private final static String INSERT = "INSERT INTO entrada (id_a,Descripcion,Fecha,FechaRecordatorio) VALUES (?,?,?,?)";
+	/**
+	 * Consulta para que nos de todas las entradas
+	 */
 	private static final String TODO = "SELECT * FROM entrada";
-	private static final String GETBYCATEGORIA = "SELECT entrada,id,entrada.Descripcion,entrada.Fecha,entrada.FechaRecordatorio,entrada.id_a FROM entrada,asignatura WHERE id_a=entrada.id";
 	private static final Statement ConnectionUtil = null;
 
+	/**
+	 * Contructor por los siguientes parametros
+	 * @param descripcionEntradaa
+	 * @param descrip
+	 * @param id
+	 */
 	public EntradaDAO(String descripcionEntradaa, String descrip, int id) {
 		super();
 	}
 
+	/**
+	 *  Contructor por los siguientes parametros
+	 * @param id
+	 * @param Descripcion
+	 * @param Fecha
+	 * @param fechaRecordatorio
+	 * @param id_a
+	 */
 	public EntradaDAO(int id, String Descripcion, String Fecha, String fechaRecordatorio, int id_a ) {
 		super(id, Descripcion, Fecha, fechaRecordatorio, id_a);
 	}
+	/**
+	 *  Contructor por los siguientes parametros
+	 * @param Descripcion
+	 * @param Fecha
+	 * @param FechaRecordatorio
+	 * @param id_a
+	 */
 	public EntradaDAO(String Descripcion, String Fecha, String FechaRecordatorio, int id_a) {
 		super(id_a, Descripcion, Fecha, FechaRecordatorio, id_a);
 	
 	}
 	
+	/**
+	 * Contructor por defecto
+	 */
 	public EntradaDAO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+/**
+ * Metodo con el que nos conectamos a la base de datos 
+ * @param id
+ */
 	public EntradaDAO(int id)  {
 		super();
 		Connection con = (Connection) Utils.ConnectionUtil.getConnection();
@@ -63,7 +99,10 @@ public class EntradaDAO extends Entrada {
 			}
 		}
 	}
-
+/**
+ * Contructor por defecto
+ * @param j entrada que se le pasa
+ */
 	public EntradaDAO(Entrada j) {
 		this.id = j.id;
 		this.Descripcion = j.Descripcion;
@@ -72,11 +111,20 @@ public class EntradaDAO extends Entrada {
 		this.id_a = j.id_a;
 		
 	}
-
+/**
+ * Contructor con los siguientes parametros
+ * @param id
+ * @param descrip
+ * @param fecha
+ * @param fechaRecordatorio
+ */
 	public EntradaDAO(int id, String descrip, String fecha, DatePicker fechaRecordatorio) {
 		// TODO Auto-generated constructor stub
 	}
-
+/**
+ * Metodo el cual si entra en el if nos sirve para editar una entrada, si entra en el else crea una y la inserta en la base de datos
+ * @return
+ */
 	public int save(){
         int result = -1;
         
@@ -123,7 +171,10 @@ public class EntradaDAO extends Entrada {
         
         return result;
     }
-
+/**
+ * Metodo para eliminar una entrada de la base de datos
+ * @return
+ */
 	public int eliminar()  {
 		int rs=0;
 		Connection con = Utils.ConnectionUtil.getConnection();
@@ -142,7 +193,11 @@ public class EntradaDAO extends Entrada {
 		return rs;
 
 	}
-
+/**
+ * Metodo para conseguir todas las entradas que tenemos en la base de datos
+ * @return Devuelve una lista con todas las entradas
+ * @throws SQLException
+ */
 	public static List<Entrada> GetAllEntradas() throws SQLException {
 		List<Entrada> Base = new ArrayList<Entrada>();
 		Connection con = ConnectionUtil.getConnection();

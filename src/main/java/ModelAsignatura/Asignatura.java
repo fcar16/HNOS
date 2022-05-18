@@ -55,7 +55,7 @@ public class Asignatura {
 		this.nombre = nombre;
 		Entradas=new ArrayList<>();
 	}
-/*
+/**
  * Metodo Para sacar la id
  */
 	public int getId() {
@@ -68,7 +68,7 @@ public class Asignatura {
 	public void setId(int id) {
 		this.id = id;
 	}
-/*
+/**
  * Metodo para sacar el nombre
  */
 	public String getNombre() {
@@ -81,14 +81,14 @@ public class Asignatura {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-/*
+/**
  * Metodo para ver  las entradas que hay
  */
 	public List<Entrada> getEntradas() {
 		return Entradas;
 	}
 
-/*
+/**
  * Metodo para cambiar o añadir entradas a la lista
  */
 	public void setEntradas(List<Entrada> Entradas) {
